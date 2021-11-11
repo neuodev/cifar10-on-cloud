@@ -10,6 +10,9 @@ print('Load Data...')
 (X_train, y_train), (X_test, y_test) = load_data()
 print('Data', X_train.shape)
 
+X_train = X_train / 255.0
+X_test = X_test / 255.0
+
 print('Build the model..')
 model = Sequential()
 model.add(Conv2D(filters=3, kernel_size=2, input_shape=(32, 32, 3)))
