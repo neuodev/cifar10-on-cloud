@@ -14,20 +14,20 @@ X_train = X_train / 255.0
 X_test = X_test / 255.0
 
 print('Build the model..')
+# example of a 3-block vgg style architecture
 model = Sequential()
-model.add(Conv2D(filters=3, kernel_size=2, input_shape=(32, 32, 3)))
-model.add(MaxPooling2D(2))
-model.add(Dropout(0.5))
-
-model.add(Conv2D(filters=3, kernel_size=2))
-model.add(MaxPooling2D(2))
-model.add(Dropout(0.5))
-
-model.add(Conv2D(filters=3, kernel_size=2))
-model.add(MaxPooling2D(2))
-model.add(Dropout(0.5))
+model.add(Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same', input_shape=(32, 32, 3)))
+model.add(Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+model.add(MaxPooling2D((2, 2)))
+model.add(Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+model.add(Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+model.add(MaxPooling2D((2, 2)))
+model.add(Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+model.add(Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+model.add(MaxPooling2D((2, 2)))
 
 model.add(Flatten())
+model.add(Dense(128, activation='relu', kernel_initializer='he_uniform'))
 model.add(Dense(10, activation='softmax'))
 
 model.compile(
